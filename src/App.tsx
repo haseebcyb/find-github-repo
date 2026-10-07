@@ -163,6 +163,12 @@ export default function App() {
     if (metaDesc) metaDesc.setAttribute('content', desc);
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute('content', title);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', desc);
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) twTitle.setAttribute('content', title);
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute('content', desc);
   }, [activePage, selectedCategorySlug, selectedWebsiteSlug]);
 
   const saveToHistory = (res: AnalyzeResponse) => {
@@ -270,16 +276,23 @@ export default function App() {
       {/* Top Bar Contract: Zone 1 (Single Brand Wordmark) — Zone 2 (6 Nav Links) — Zone 3 (Primary Action) */}
       <header className="sticky top-0 z-30 bg-white border-t-4 border-t-[#8B0000] border-b-2 border-b-slate-950">
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-          {/* Zone 1: Single text element wordmark in Playfair Display */}
+          {/* Zone 1: Brand Emblem Image + Title Wordmark in Playfair Display */}
           <a
             href="/"
             onClick={(e) => {
               e.preventDefault();
               navigateTo('home');
             }}
-            className="text-xl font-display font-extrabold tracking-tight text-slate-950 whitespace-nowrap shrink-0"
+            className="flex items-center gap-2.5 text-xl font-display font-extrabold tracking-tight text-slate-950 whitespace-nowrap shrink-0"
           >
-            Website → GitHub Finder
+            <img
+              src="/favicon.svg"
+              alt="Website to GitHub Finder Emblem"
+              width={28}
+              height={28}
+              className="w-7 h-7 rounded-xs shrink-0"
+            />
+            <span>Website → GitHub Finder</span>
           </a>
 
           {/* Zone 2: Multi-page desktop navigation in Poppins Bold */}

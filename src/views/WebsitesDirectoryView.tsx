@@ -11,6 +11,7 @@ import {
 import { CATEGORIES, DIRECTORY_ENTRIES } from '../data/directoryData';
 import { RepositoryCard, formatCompactNumber } from '../components/RepositoryCard';
 import { WebsiteThumbnail } from '../components/WebsiteThumbnail';
+import { BUNDLED_SHOWCASE_IMAGES, FREE_SOURCE_FALLBACK_IMAGES } from '../imageAssets';
 
 interface WebsitesDirectoryViewProps {
   onSelectWebsite: (slug: string) => void;
@@ -128,7 +129,13 @@ export const WebsitesDirectoryView: React.FC<WebsitesDirectoryViewProps> = ({
 
           <div className="lg:col-span-4 bg-slate-950 relative min-h-[170px] border-t-2 lg:border-t-0 lg:border-l-2 border-slate-900 overflow-hidden">
             <img
-              src="/src/assets/images/directory_archive_showcase_1791382431169.jpg"
+              src={BUNDLED_SHOWCASE_IMAGES.directoryArchive}
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target.src !== FREE_SOURCE_FALLBACK_IMAGES.directoryArchive) {
+                  target.src = FREE_SOURCE_FALLBACK_IMAGES.directoryArchive;
+                }
+              }}
               alt="Websites Directory Ledger Showcase"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover object-center opacity-90"

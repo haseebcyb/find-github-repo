@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Search, RotateCcw } from 'lucide-react';
 import { CATEGORIES, DIRECTORY_ENTRIES } from '../data/directoryData';
 import { RepositoryCard } from '../components/RepositoryCard';
+import { BUNDLED_SHOWCASE_IMAGES, FREE_SOURCE_FALLBACK_IMAGES } from '../imageAssets';
 
 interface ExploreViewProps {
   onSelectWebsite: (slug: string) => void;
@@ -98,7 +99,13 @@ export const ExploreView: React.FC<ExploreViewProps> = ({
           </div>
           <div className="lg:col-span-4 bg-slate-950 relative min-h-[160px] border-t-2 lg:border-t-0 lg:border-l-2 border-slate-900 overflow-hidden">
             <img
-              src="/src/assets/images/directory_archive_showcase_1791382431169.jpg"
+              src={BUNDLED_SHOWCASE_IMAGES.directoryArchive}
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target.src !== FREE_SOURCE_FALLBACK_IMAGES.directoryArchive) {
+                  target.src = FREE_SOURCE_FALLBACK_IMAGES.directoryArchive;
+                }
+              }}
               alt="Curated Open-Source Directory Archive"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover object-center opacity-90"

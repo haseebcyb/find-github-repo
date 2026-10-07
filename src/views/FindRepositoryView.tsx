@@ -9,6 +9,7 @@ import {
 import { AnalyzeResponse, RepositoryCandidate } from '../types';
 import { formatCompactNumber } from '../components/RepositoryCard';
 import { WebsiteThumbnail } from '../components/WebsiteThumbnail';
+import { BUNDLED_SHOWCASE_IMAGES, FREE_SOURCE_FALLBACK_IMAGES } from '../imageAssets';
 
 interface FindRepositoryViewProps {
   urlInput: string;
@@ -188,7 +189,13 @@ export const FindRepositoryView: React.FC<FindRepositoryViewProps> = ({
 
           <div className="lg:col-span-4 bg-slate-950 relative min-h-[200px] border-t-2 lg:border-t-0 lg:border-l-2 border-slate-900 overflow-hidden">
             <img
-              src="/src/assets/images/analyzer_signal_radar_1791382414629.jpg"
+              src={BUNDLED_SHOWCASE_IMAGES.signalRadar}
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target.src !== FREE_SOURCE_FALLBACK_IMAGES.signalRadar) {
+                  target.src = FREE_SOURCE_FALLBACK_IMAGES.signalRadar;
+                }
+              }}
               alt="Optical Signal Verification Instrument"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover object-center opacity-90"

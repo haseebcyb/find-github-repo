@@ -12,6 +12,7 @@ import {
 import { CATEGORIES, DIRECTORY_ENTRIES } from '../data/directoryData';
 import { SearchHistoryItem } from '../types';
 import { RepositoryCard } from '../components/RepositoryCard';
+import { BUNDLED_SHOWCASE_IMAGES, FREE_SOURCE_FALLBACK_IMAGES } from '../imageAssets';
 
 interface HomeViewProps {
   onAnalyzeUrl: (url: string) => void;
@@ -175,7 +176,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="lg:col-span-5 bg-slate-950 text-white border-t-2 lg:border-t-0 lg:border-l-2 border-slate-900 flex flex-col justify-between">
               <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-900">
                 <img
-                  src="/src/assets/images/hero_source_discovery_1791382394317.jpg"
+                  src={BUNDLED_SHOWCASE_IMAGES.heroObservatory}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== FREE_SOURCE_FALLBACK_IMAGES.heroObservatory) {
+                      target.src = FREE_SOURCE_FALLBACK_IMAGES.heroObservatory;
+                    }
+                  }}
                   alt="Public Source Code Observatory and Repository Verification Index"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover object-center opacity-90"
