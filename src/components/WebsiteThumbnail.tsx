@@ -99,6 +99,12 @@ export const WebsiteThumbnail: React.FC<WebsiteThumbnailProps> = ({
 
   const cleanDomain = (domain || '').replace(/^https?:\/\//i, '').split('/')[0];
 
+  React.useEffect(() => {
+    setSourceIndex(0);
+    setRemoteLoaded(false);
+    setFaviconError(false);
+  }, [cleanDomain, repoOwner, repoName, customImageUrl]);
+
   // Candidate remote image sources in priority order
   const imageCandidates = useMemo(() => {
     const list: string[] = [];

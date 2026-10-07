@@ -7,6 +7,7 @@ import {
   SlidersHorizontal,
 } from 'lucide-react';
 import { AnalyzeResponse, RepositoryCandidate } from '../types';
+import { DIRECTORY_ENTRIES } from '../data/directoryData';
 import { formatCompactNumber } from '../components/RepositoryCard';
 import { WebsiteThumbnail } from '../components/WebsiteThumbnail';
 import { BUNDLED_SHOWCASE_IMAGES, FREE_SOURCE_FALLBACK_IMAGES } from '../imageAssets';
@@ -107,6 +108,91 @@ export const FindRepositoryView: React.FC<FindRepositoryViewProps> = ({
     )
   );
 
+  // Dynamically resolve the searched website's live preview & top repository for the header image panel
+  const liveHeaderPreview = React.useMemo(() => {
+    const rawTarget = (urlInput || result?.website || '').trim();
+    const cleanedDomain = rawTarget
+      .toLowerCase()
+      .replace(/^https?:\/\//, '')
+      .replace(/^www\./, '')
+      .split('/')[0];
+
+    const matchedDirectoryEntry = cleanedDomain
+      ? DIRECTORY_ENTRIES.find(
+          (e) =>
+            e.domain.toLowerCase() === cleanedDomain ||
+            cleanedDomain.endsWith(`.${e.domain.toLowerCase()}`) ||
+            e.domain.toLowerCase().startsWith(`${cleanedDomain}/`)
+        )
+      : undefined;
+
+    if (activeRepository) {
+      const dom =
+        result?.normalizedDomain ||
+        cleanedDomain ||
+        matchedDirectoryEntry?.domain ||
+        'github.com';
+      return {
+        active: true,
+        domain: dom,
+        websiteName:
+          result?.websiteMetadata?.title ||
+          matchedDirectoryEntry?.websiteName ||
+          activeRepository.name,
+        repoOwner: activeRepository.owner,
+        repoName: activeRepository.name,
+        primaryTechnology:
+          result?.websiteMetadata?.detectedFrameworks?.[0] ||
+          matchedDirectoryEntry?.primaryTechnology ||
+          activeRepository.language ||
+          'Public Source',
+        language: activeRepository.language || matchedDirectoryEntry?.language || 'Git',
+        customImageUrl: result?.websiteMetadata?.ogImage || null,
+        badgeLabel: isLoading
+          ? `SCANNING // ${dom}`
+          : `TOP MATCH // ${activeRepository.owner}/${activeRepository.name}`,
+        confidenceText: `${activeRepository.confidence}% Confidence`,
+      };
+    }
+
+    if (matchedDirectoryEntry) {
+      return {
+        active: true,
+        domain: matchedDirectoryEntry.domain,
+        websiteName: matchedDirectoryEntry.websiteName,
+        repoOwner: matchedDirectoryEntry.repoOwner,
+        repoName: matchedDirectoryEntry.repoName,
+        primaryTechnology: matchedDirectoryEntry.primaryTechnology,
+        language: matchedDirectoryEntry.language,
+        customImageUrl: null,
+        badgeLabel: isLoading
+          ? `ANALYZING // ${matchedDirectoryEntry.domain}`
+          : `INDEXED MATCH // ${matchedDirectoryEntry.repoFullName}`,
+        confidenceText: `${matchedDirectoryEntry.confidence}% Verified`,
+      };
+    }
+
+    if (cleanedDomain && cleanedDomain.includes('.')) {
+      return {
+        active: true,
+        domain: cleanedDomain,
+        websiteName: result?.websiteMetadata?.title || cleanedDomain,
+        repoOwner: undefined,
+        repoName: undefined,
+        primaryTechnology:
+          result?.websiteMetadata?.detectedFrameworks?.[0] || 'Live Website Preview',
+        language: 'Web',
+        customImageUrl: result?.websiteMetadata?.ogImage || null,
+        badgeLabel: isLoading
+          ? `INSPECTING // ${cleanedDomain}`
+          : `WEBSITE PREVIEW // ${cleanedDomain}`,
+        confidenceText: result?.status === 'not_found' ? 'No Public Repo' : 'Ready',
+      };
+    }
+
+    return null;
+  }, [urlInput, result, activeRepository, isLoading]);
+
   return (
     <div className="py-8 space-y-8">
       {/* Bold Page Header Banner with Optical Signal Instrument Visual */}
@@ -166,11 +252,11 @@ export const FindRepositoryView: React.FC<FindRepositoryViewProps> = ({
             <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs">
               <span className="text-slate-900 font-bold">Quick test URLs:</span>
               {[
-                'https://vercel.com',
+                'https://threejs.org',
+                'https://gsap.com',
+                'https://magicui.design',
                 'https://nextjs.org',
-                'https://astro.build',
-                'https://about.gitlab.com',
-                'https://example.com',
+                'https://supabase.com',
               ].map((u, i) => (
                 <React.Fragment key={u}>
                   {i > 0 && <span className="text-[#8B0000] font-bold">·</span>}
@@ -187,24 +273,54 @@ export const FindRepositoryView: React.FC<FindRepositoryViewProps> = ({
             </div>
           </div>
 
-          <div className="lg:col-span-4 bg-slate-950 relative min-h-[200px] border-t-2 lg:border-t-0 lg:border-l-2 border-slate-900 overflow-hidden">
-            <img
-              src={BUNDLED_SHOWCASE_IMAGES.signalRadar}
-              onError={(e) => {
-                const target = e.currentTarget;
-                if (target.src !== FREE_SOURCE_FALLBACK_IMAGES.signalRadar) {
-                  target.src = FREE_SOURCE_FALLBACK_IMAGES.signalRadar;
-                }
-              }}
-              alt="Optical Signal Verification Instrument"
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover object-center opacity-90"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
-            <div className="absolute bottom-3 left-4 right-4 text-xs font-mono text-white">
-              <div className="text-red-400 font-bold">SIGNAL PIPELINE</div>
-              <div className="text-white font-bold">HTML + OpenGraph + GitHub REST</div>
-            </div>
+          <div className="lg:col-span-4 bg-slate-950 relative min-h-[220px] border-t-2 lg:border-t-0 lg:border-l-2 border-slate-900 overflow-hidden flex flex-col justify-between">
+            {liveHeaderPreview ? (
+              <>
+                <div className="flex-1 flex flex-col justify-center bg-slate-950">
+                  <WebsiteThumbnail
+                    key={`${liveHeaderPreview.domain}-${liveHeaderPreview.repoOwner || ''}-${liveHeaderPreview.repoName || ''}`}
+                    domain={liveHeaderPreview.domain}
+                    websiteName={liveHeaderPreview.websiteName}
+                    repoOwner={liveHeaderPreview.repoOwner}
+                    repoName={liveHeaderPreview.repoName}
+                    primaryTechnology={liveHeaderPreview.primaryTechnology}
+                    language={liveHeaderPreview.language}
+                    customImageUrl={liveHeaderPreview.customImageUrl}
+                    className="w-full h-full border-b-0"
+                  />
+                </div>
+                <div className="px-4 py-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between gap-2 text-[11px] font-mono text-white">
+                  <span className="text-red-400 font-bold truncate">
+                    {liveHeaderPreview.badgeLabel}
+                  </span>
+                  <span className="text-blue-300 font-bold shrink-0">
+                    {liveHeaderPreview.confidenceText}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <>
+                <img
+                  src={BUNDLED_SHOWCASE_IMAGES.signalRadar}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== FREE_SOURCE_FALLBACK_IMAGES.signalRadar) {
+                      target.src = FREE_SOURCE_FALLBACK_IMAGES.signalRadar;
+                    }
+                  }}
+                  alt="Optical Signal Verification Instrument"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-center opacity-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 text-xs font-mono text-white">
+                  <div className="text-red-400 font-bold">SIGNAL PIPELINE</div>
+                  <div className="text-white font-bold">
+                    Enter any URL to preview website &amp; top repo
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
