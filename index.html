@@ -4,6 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Website → GitHub Finder | Discover Public GitHub Repositories Behind Any Website</title>
+    <script>
+      // Intercept Vite HMR WebSocket errors BEFORE @vite/client executes
+      (function () {
+        function shouldSuppress(errOrMsg) {
+          var s = String((errOrMsg && errOrMsg.message) || errOrMsg || '');
+          return (
+            s.indexOf('WebSocket closed without opened') !== -1 ||
+            s.indexOf('failed to connect to websocket') !== -1 ||
+            s.indexOf('@vite/client') !== -1
+          );
+        }
+        window.addEventListener(
+          'unhandledrejection',
+          function (e) {
+            if (shouldSuppress(e.reason)) {
+              e.preventDefault();
+              e.stopImmediatePropagation();
+            }
+          },
+          true
+        );
+        window.addEventListener(
+          'error',
+          function (e) {
+            if (shouldSuppress(e.error || e.message)) {
+              e.preventDefault();
+              e.stopImmediatePropagation();
+            }
+          },
+          true
+        );
+        var origError = console.error;
+        console.error = function () {
+          var first = arguments[0];
+          if (shouldSuppress(first)) return;
+          return origError.apply(console, arguments);
+        };
+      })();
+    </script>
     <meta
       name="description"
       content="Enter any website URL to discover its public GitHub repository, or explore 180+ verified Three.js, Frontend Animation, UI/UX, SaaS, and Open-Source websites."

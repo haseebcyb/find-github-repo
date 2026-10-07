@@ -9,6 +9,7 @@ import { WebsitesDirectoryView } from './views/WebsitesDirectoryView';
 import { CategoriesView } from './views/CategoriesView';
 import { WebsiteDetailView } from './views/WebsiteDetailView';
 import { AboutView } from './views/AboutView';
+import { analyzeWebsiteClientFallback } from './utils/clientAnalyzerFallback';
 
 export type RoutePage =
   | 'home'
@@ -223,17 +224,34 @@ export default function App() {
         body: JSON.stringify({ url: queryUrl, forceRefresh }),
       });
 
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        throw new Error('Non-JSON response from backend');
+      }
+
       const data: AnalyzeResponse = await response.json();
+
+      // If backend returned a generic error or couldn't find a known directory site, check client fallback
+      if (data.status === 'error' || data.status === 'not_found') {
+        const fallbackData = await analyzeWebsiteClientFallback(queryUrl);
+        if (
+          fallbackData.status === 'found' ||
+          fallbackData.status === 'possible_match' ||
+          data.status === 'error'
+        ) {
+          setAnalysisResult(fallbackData);
+          saveToHistory(fallbackData);
+          return;
+        }
+      }
+
       setAnalysisResult(data);
       saveToHistory(data);
     } catch {
-      setAnalysisResult({
-        website: queryUrl,
-        status: 'error',
-        confidence: 0,
-        message: 'Unable to reach the analysis service. Please try again.',
-        repositories: [],
-      });
+      // Backend unreachable (e.g., static hosting or dev server restarting) -> run resilient client fallback
+      const fallbackData = await analyzeWebsiteClientFallback(queryUrl);
+      setAnalysisResult(fallbackData);
+      saveToHistory(fallbackData);
     } finally {
       setIsLoading(false);
     }
@@ -276,23 +294,23 @@ export default function App() {
       {/* Top Bar Contract: Zone 1 (Single Brand Wordmark) — Zone 2 (6 Nav Links) — Zone 3 (Primary Action) */}
       <header className="sticky top-0 z-30 bg-white border-t-4 border-t-[#8B0000] border-b-2 border-b-slate-950">
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-          {/* Zone 1: Brand Emblem Image + Title Wordmark in Playfair Display */}
+          {/* Zone 1: Brand Emblem Logo Only (Logo Text Removed) */}
           <a
             href="/"
+            aria-label="Home"
             onClick={(e) => {
               e.preventDefault();
               navigateTo('home');
             }}
-            className="flex items-center gap-2.5 text-xl font-display font-extrabold tracking-tight text-slate-950 whitespace-nowrap shrink-0"
+            className="flex items-center shrink-0"
           >
             <img
               src="/favicon.svg"
-              alt="Website to GitHub Finder Emblem"
-              width={28}
-              height={28}
-              className="w-7 h-7 rounded-xs shrink-0"
+              alt="Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 rounded-xs shrink-0"
             />
-            <span>Website → GitHub Finder</span>
           </a>
 
           {/* Zone 2: Multi-page desktop navigation in Poppins Bold */}
