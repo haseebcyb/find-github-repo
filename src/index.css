@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #FFFFFF;
+    color: #090D16;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* Do NOT force dark color on span/td/th so buttons and dark banners keep white text */
+  p, li, dd, input, select, textarea, label {
+    font-family: var(--font-sans);
+    font-weight: 600;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  h4, dt, strong, b {
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+
+  button, a {
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Explicit reusable button classes with guaranteed white text on colored backgrounds */
+.btn-crimson {
+  background-color: #8B0000;
+  color: #FFFFFF !important;
+  border: 2px solid #8B0000;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-crimson span,
+.btn-crimson svg {
+  color: #FFFFFF !important;
+}
+.btn-crimson:hover:not(:disabled) {
+  background-color: #1E3A8A;
+  border-color: #1E3A8A;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.22);
+}
+
+.btn-royal {
+  background-color: #1E3A8A;
+  color: #FFFFFF !important;
+  border: 2px solid #1E3A8A;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-royal span,
+.btn-royal svg {
+  color: #FFFFFF !important;
+}
+.btn-royal:hover:not(:disabled) {
+  background-color: #8B0000;
+  border-color: #8B0000;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.22);
+}
+
+.btn-obsidian {
+  background-color: #090D16;
+  color: #FFFFFF !important;
+  border: 2px solid #090D16;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-obsidian span,
+.btn-obsidian svg {
+  color: #FFFFFF !important;
+}
+.btn-obsidian:hover:not(:disabled) {
+  background-color: #8B0000;
+  border-color: #8B0000;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.22);
+}
+
+.btn-outline-editorial {
+  background-color: #FFFFFF;
+  color: #090D16 !important;
+  border: 2px solid #090D16;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-outline-editorial:hover:not(:disabled) {
+  background-color: #090D16;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+}
+.btn-outline-editorial:hover:not(:disabled) span,
+.btn-outline-editorial:hover:not(:disabled) svg {
+  color: #FFFFFF !important;
+}
+
+.card-editorial {
+  background-color: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-top: 4px solid #090D16;
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.card-editorial:hover {
+  border-color: #1E3A8A;
+  border-top-color: #8B0000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px rgba(9, 13, 22, 0.14);
+}
+
+/* 1900s Archival Broadsheet Double Rule & Ledger Accents */
+.double-rule-top {
+  border-top: 4px double #090D16;
+}
+.double-rule-bottom {
+  border-bottom: 4px double #090D16;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

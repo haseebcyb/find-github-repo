@@ -1,0 +1,6 @@
+{
+  "name": "Website to GitHub Finder",
+  "description": "Enter a website URL and discover whether its publicly available source code is hosted on GitHub.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
