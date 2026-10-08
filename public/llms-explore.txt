@@ -1,0 +1,12 @@
+# Website → GitHub Finder — Explore 180+ Open-Source Websites & Repositories (/?page=explore)
+
+> Canonical Page URL: https://findgithubrepo.vercel.app/?page=explore
+> Page Type: Interactive Repository Search & Multi-Facet Filter
+
+## Page Overview
+The Explore page (`/?page=explore`) provides real-time search, category filtering, programming language filtering (`TypeScript`, `JavaScript`, `GLSL`, `Rust`, `Python`, `Go`, `Vue`, `Svelte`, `CSS`), and sorting (`Highest Confidence`, `Most GitHub Stars`, `Recently Updated`, `Alphabetical`) across 180+ verified websites and their public GitHub repositories.
+
+## Highlighted Frontend, 3D & UI/UX Showcases
+- **Three.js & WebGL 3D**: `threejs.org` (`mrdoob/three.js`), `r3f.docs.pmnd.rs` (`pmndrs/react-three-fiber`), `drei.docs.pmnd.rs` (`pmndrs/drei`), `theatrejs.com` (`theatre-js/theatre`), `tresjs.org` (`Tresjs/tres`), `threlte.xyz` (`threlte/threlte`), `babylonjs.com` (`BabylonJS/Babylon.js`), `playcanvas.com` (`playcanvas/engine`).
+- **Frontend Animation & Motion**: `gsap.com` (`greensock/GSAP`), `motion.dev` (`motiondivision/motion`), `animejs.com` (`juliangarnier/anime`), `lenis.darkroom.engineering` (`darkroomengineering/lenis`), `rive.app` (`rive-app/rive-wasm`), `react-spring.dev` (`pmndrs/react-spring`), `barba.js.org` (`barbajs/barba`), `remotion.dev` (`remotion-dev/remotion`).
+- **UI/UX & Design Systems**: `magicui.design` (`magicuidesign/magicui`), `reactbits.dev` (`DavidHDev/react-bits`), `ui.shadcn.com` (`shadcn-ui/ui`), `motion-primitives.com` (`ibelick/motion-primitives`), `radix-ui.com` (`radix-ui/primitives`), `originui.com` (`origin-space/originui`), `mantine.dev` (`mantinedev/mantine`), `daisyui.com` (`saadeghi/daisyui`).

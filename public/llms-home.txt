@@ -1,0 +1,18 @@
+# Website → GitHub Finder — Home Observatory (findgithubrepo.vercel.app)
+
+> Canonical Page URL: https://findgithubrepo.vercel.app/
+> Page Type: Home Observatory & Instant URL Discovery Hub
+
+## Page Overview
+The Home Observatory is the main entry point of Website → GitHub Finder. It allows users and AI agents to:
+- Enter any public website URL into the instant analyzer bar (`https://threejs.org`, `https://gsap.com`, `https://magicui.design`, `https://nextjs.org`, `https://supabase.com`) to inspect HTML metadata and discover its verified GitHub repository.
+- Browse Top Featured Repositories across Three.js 3D, Frontend Animation, UI/UX Design Systems, and Full-Stack frameworks.
+- Navigate directly into 21 specialized website categories and inspect recent 30-day verification history.
+
+## Related Page LLM Indexes
+- Main Index: https://findgithubrepo.vercel.app/llms.txt
+- Find Repository Analyzer Page: https://findgithubrepo.vercel.app/llms-find.txt
+- Explore & Filter Page: https://findgithubrepo.vercel.app/llms-explore.txt
+- 21 Categories Index Page: https://findgithubrepo.vercel.app/llms-categories.txt
+- Complete Websites Directory Page: https://findgithubrepo.vercel.app/llms-websites.txt
+- About, Security & Developer Contact Page: https://findgithubrepo.vercel.app/llms-about.txt

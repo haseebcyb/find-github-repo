@@ -1,0 +1,27 @@
+# Website → GitHub Finder — 21 Website & Repository Categories (/?page=categories)
+
+> Canonical Page URL: https://findgithubrepo.vercel.app/?page=categories
+> Page Type: Taxonomy & Category Directory Index
+
+## Indexed Categories (All 21 Separate Category Pages)
+1. **Three.js, WebGL & 3D** (`https://findgithubrepo.vercel.app/?page=categories&category=threejs-3d`) — 3D web engines, WebGL/WebGPU shaders, React Three Fiber ecosystems, and spatial canvas libraries.
+2. **Frontend Animation & Motion** (`https://findgithubrepo.vercel.app/?page=categories&category=frontend-animation`) — Timeline animation engines (GSAP, Anime.js, Motion), smooth scroll libraries (Lenis, Locomotive), and page transitions.
+3. **UI/UX & Design Systems** (`https://findgithubrepo.vercel.app/?page=categories&category=ui-ux-design`) — Interactive component registries (Magic UI, React Bits, shadcn/ui, Radix UI), accessible primitives, and design tools.
+4. **Developer Tools** (`https://findgithubrepo.vercel.app/?page=categories&category=developer-tools`) — Build systems, bundlers, web frameworks, and developer utilities (Next.js, Vite, Astro, Tailwind CSS).
+5. **SaaS** (`https://findgithubrepo.vercel.app/?page=categories&category=saas`) — Open-source software-as-a-service platforms (Supabase, Cal.com, Dub.co, Appwrite, Plausible, PostHog).
+6. **AI & Machine Learning** (`https://findgithubrepo.vercel.app/?page=categories&category=ai`) — Local LLM runners, AI interfaces, and ML platforms (Ollama, Open WebUI, LangChain, Hugging Face).
+7. **E-Commerce** (`https://findgithubrepo.vercel.app/?page=categories&category=e-commerce`) — Headless storefronts and commerce engines (Medusa, Vendure, Saleor, Bagisto).
+8. **Portfolio** (`https://findgithubrepo.vercel.app/?page=categories&category=portfolio`) — Creative developer 3D portfolios, WebGL showcases, and shader galleries (Bruno Simon, The Book of Shaders, Cables.gl).
+9. **Agency & Creative Studios** (`https://findgithubrepo.vercel.app/?page=categories&category=agency`) — Digital design studios and creative engineering collectives (Darkroom Engineering, Basement Studio).
+10. **Education** (`https://findgithubrepo.vercel.app/?page=categories&category=education`) — Interactive coding platforms (freeCodeCamp, The Odin Project, Roadmap.sh).
+11. **Finance** (`https://findgithubrepo.vercel.app/?page=categories&category=finance`) — Personal finance and accounting platforms (Maybe Finance, Actual Budget, Ghostfolio).
+12. **Healthcare** (`https://findgithubrepo.vercel.app/?page=categories&category=healthcare`) — Clinical EHR and medical imaging platforms (Medplum, OHIF Viewer, OpenMRS).
+13. **News & Media** (`https://findgithubrepo.vercel.app/?page=categories&category=news-media`) — Publishing platforms and developer media communities (Ghost, Forem / DEV, Hashnode).
+14. **Documentation** (`https://findgithubrepo.vercel.app/?page=categories&category=documentation`) — Technical documentation generators (Docusaurus, VitePress, Starlight, Fumadocs, Mintlify).
+15. **Open Source** (`https://findgithubrepo.vercel.app/?page=categories&category=open-source`) — Foundational open-source ecosystems (Godot Engine, Blender, Inkscape).
+16. **Landing Pages** (`https://findgithubrepo.vercel.app/?page=categories&category=landing-pages`) — High-converting marketing templates and launch pages.
+17. **Productivity** (`https://findgithubrepo.vercel.app/?page=categories&category=productivity`) — Collaborative whiteboards, knowledge bases, and project trackers (Excalidraw, tldraw, Plane, AppFlowy, Affine, Logseq).
+18. **Social & Community** (`https://findgithubrepo.vercel.app/?page=categories&category=social-community`) — Federated social networks and chat platforms (Mastodon, Discourse, Matrix Element, Mattermost).
+19. **Dashboards & Visualization** (`https://findgithubrepo.vercel.app/?page=categories&category=dashboards`) — Data visualization engines and observability dashboards (Grafana, Apache Superset, Metabase, D3.js, React Flow).
+20. **Games & 2D/3D Physics** (`https://findgithubrepo.vercel.app/?page=categories&category=games`) — HTML5 WebGL game engines and interactive browser games (Phaser, KAPLAY, Matter.js, Lichess, Veloren).
+21. **Miscellaneous** (`https://findgithubrepo.vercel.app/?page=categories&category=miscellaneous`) — Self-hosted utilities and specialized web tools (Immich, PairDrop, CyberChef, Hoppscotch).

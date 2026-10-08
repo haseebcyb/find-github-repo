@@ -1,0 +1,22 @@
+# Website → GitHub Finder — How It Works, Security & Developer Contact (/?page=about)
+
+> Canonical Page URL: https://findgithubrepo.vercel.app/?page=about
+> Page Type: 9-Rule Scoring Methodology, SSRF Security Architecture & Developer Query Desk
+
+## 9-Rule Verification Scoring System
+1. Direct GitHub Repository Link in Website HTML (`+50 pts`)
+2. Repository Homepage Matches Website Domain (`+30 pts`)
+3. Repository Owner Matches Website Brand (`+20 pts`)
+4. Repository Name Matches Website Brand (`+15 pts`)
+5. README.md Mentions Exact Website Domain (`+15 pts`)
+6. Repository Description Mentions Domain or Brand (`+10 pts`)
+7. Repository Topics Match Website Stack (`+10 pts`)
+8. Verified Organization / Active Maintenance Signal (`+5 pts`)
+9. Archived or Unofficial Mirror Penalty (`-15 pts`)
+
+## Organization & Developer Contact
+- **Company**: pkfinder company
+- **Lead Developer Email**: ohmllghothak@gmail.com
+- **Advertising Units (`findgithubrepo.vercel.app`)**:
+  - Skyscraper `160x600`: Unit ID `31626365`
+  - Leaderboard `728x90`: Unit ID `31626366`

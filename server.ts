@@ -1346,15 +1346,94 @@ app.post('/api/analyze', async (req, res) => {
   }
 });
 
-// SEO: robots.txt
+// SEO: robots.txt (Search Engines + All Major LLM Crawlers + Per-Page LLM Indexes)
 app.get('/robots.txt', (req, res) => {
-  const baseUrl =
-    process.env.APP_URL || `${req.protocol}://${req.get('host') || 'localhost:3000'}`;
+  const baseUrl = (
+    process.env.APP_URL || `${req.protocol}://${req.get('host') || 'localhost:3000'}`
+  ).replace(/\/$/, '');
   res.type('text/plain').send(
-    `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${baseUrl.replace(
-      /\/$/,
-      ''
-    )}/sitemap.xml\n`
+    `User-agent: *
+Allow: /
+Allow: /?page=home
+Allow: /?page=find
+Allow: /?page=explore
+Allow: /?page=categories
+Allow: /?page=websites
+Allow: /?page=about
+Allow: /?page=website-detail
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /llms-home.txt
+Allow: /llms-find.txt
+Allow: /llms-explore.txt
+Allow: /llms-categories.txt
+Allow: /llms-websites.txt
+Allow: /llms-about.txt
+Allow: /ads.txt
+Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+Sitemap: https://findgithubrepo.vercel.app/sitemap.xml
+Sitemap: ${baseUrl}/sitemap.xml
+`
+  );
+});
+
+// SEO: Dynamic per-page LLM index endpoint
+app.get('/api/llms-page', (req, res) => {
+  const page = String(req.query.page || 'home');
+  const category = req.query.category ? String(req.query.category) : '';
+  const site = req.query.site ? String(req.query.site) : '';
+  res.type('text/plain').send(
+    `# Website -> GitHub Finder — Page LLM Index (${page})
+> Domain: https://findgithubrepo.vercel.app/
+> Route: /?page=${page}${category ? `&category=${category}` : ''}${site ? `&site=${site}` : ''}
+> Organization: pkfinder company (ohmllghothak@gmail.com)
+
+## Dedicated Page LLM Indexes
+- Home: https://findgithubrepo.vercel.app/llms-home.txt
+- Find Repository: https://findgithubrepo.vercel.app/llms-find.txt
+- Explore 180+ Websites: https://findgithubrepo.vercel.app/llms-explore.txt
+- 21 Categories: https://findgithubrepo.vercel.app/llms-categories.txt
+- Complete Websites Directory: https://findgithubrepo.vercel.app/llms-websites.txt
+- About & Scoring: https://findgithubrepo.vercel.app/llms-about.txt
+- Full Master Index: https://findgithubrepo.vercel.app/llms-full.txt
+`
   );
 });
 
@@ -1364,14 +1443,93 @@ app.get('/sitemap.xml', (req, res) => {
     process.env.APP_URL || `${req.protocol}://${req.get('host') || 'localhost:3000'}`
   ).replace(/\/$/, '');
   const today = new Date().toISOString().split('T')[0];
-  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>${baseUrl}/</loc>
+
+  const mainRoutes = [
+    { path: '/', priority: '1.0', freq: 'daily' },
+    { path: '/?page=find', priority: '0.95', freq: 'daily' },
+    { path: '/?page=explore', priority: '0.92', freq: 'daily' },
+    { path: '/?page=categories', priority: '0.90', freq: 'weekly' },
+    { path: '/?page=websites', priority: '0.90', freq: 'daily' },
+    { path: '/?page=about', priority: '0.85', freq: 'monthly' },
+    { path: '/llms.txt', priority: '0.88', freq: 'weekly' },
+    { path: '/llms-full.txt', priority: '0.86', freq: 'weekly' },
+    { path: '/llms-home.txt', priority: '0.85', freq: 'weekly' },
+    { path: '/llms-find.txt', priority: '0.85', freq: 'weekly' },
+    { path: '/llms-explore.txt', priority: '0.85', freq: 'weekly' },
+    { path: '/llms-categories.txt', priority: '0.85', freq: 'weekly' },
+    { path: '/llms-websites.txt', priority: '0.85', freq: 'weekly' },
+    { path: '/llms-about.txt', priority: '0.85', freq: 'weekly' },
+  ];
+
+  const categorySlugs = [
+    'threejs-3d',
+    'frontend-animation',
+    'ui-ux-design',
+    'developer-tools',
+    'saas',
+    'ai',
+    'e-commerce',
+    'documentation',
+    'open-source',
+    'productivity',
+    'dashboards',
+    'portfolio',
+    'agency',
+    'landing-pages',
+    'games',
+    'education',
+    'finance',
+    'healthcare',
+    'news-media',
+    'social-community',
+    'miscellaneous',
+  ];
+
+  const featuredDomains = [
+    'threejs.org',
+    'gsap.com',
+    'motion.dev',
+    'magicui.design',
+    'reactbits.dev',
+    'nextjs.org',
+    'vite.dev',
+    'astro.build',
+    'supabase.com',
+    'tailwindcss.com',
+    'ui.shadcn.com',
+    'radix-ui.com',
+  ];
+
+  const urlNodes = [
+    ...mainRoutes.map(
+      (r) => `  <url>
+    <loc>${baseUrl}${r.path.replace(/&/g, '&amp;')}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${r.freq}</changefreq>
+    <priority>${r.priority}</priority>
+  </url>`
+    ),
+    ...categorySlugs.map(
+      (c) => `  <url>
+    <loc>${baseUrl}/?page=categories&amp;category=${c}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+    <priority>0.85</priority>
+  </url>`
+    ),
+    ...featuredDomains.map(
+      (d) => `  <url>
+    <loc>${baseUrl}/?page=website-detail&amp;site=${d}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>`
+    ),
+  ].join('\n');
+
+  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urlNodes}
 </urlset>`);
 });
 

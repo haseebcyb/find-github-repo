@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Website → GitHub Finder | Discover Public GitHub Repositories Behind Any Website</title>
     <script>
-      // Intercept Vite HMR WebSocket errors BEFORE @vite/client executes
+      // Prevent Vite HMR WebSocket from opening a dead connection in Cloud Run / preview environments
+      // and suppress any WebSocket connection warnings before @vite/client initializes.
       (function () {
         function shouldSuppress(errOrMsg) {
           var s = String((errOrMsg && errOrMsg.message) || errOrMsg || '');
@@ -15,6 +16,50 @@
             s.indexOf('@vite/client') !== -1
           );
         }
+
+        // Neutralize Vite HMR WebSocket constructor calls so @vite/client never throws
+        var NativeWebSocket = window.WebSocket;
+        if (NativeWebSocket) {
+          var PatchedWebSocket = function (url, protocols) {
+            var isViteWs =
+              typeof protocols === 'string' && protocols.indexOf('vite-') === 0;
+            var urlStr = String(url || '');
+            if (isViteWs || urlStr.indexOf('token=') !== -1) {
+              var dummy = {
+                url: urlStr,
+                readyState: 3,
+                protocol: '',
+                extensions: '',
+                bufferedAmount: 0,
+                binaryType: 'blob',
+                send: function () {},
+                close: function () {},
+                addEventListener: function () {},
+                removeEventListener: function () {},
+                dispatchEvent: function () {
+                  return true;
+                },
+                onopen: null,
+                onmessage: null,
+                onerror: null,
+                onclose: null,
+              };
+              return dummy;
+            }
+            return protocols !== undefined
+              ? new NativeWebSocket(url, protocols)
+              : new NativeWebSocket(url);
+          };
+          PatchedWebSocket.prototype = NativeWebSocket.prototype;
+          PatchedWebSocket.CONNECTING = NativeWebSocket.CONNECTING;
+          PatchedWebSocket.OPEN = NativeWebSocket.OPEN;
+          PatchedWebSocket.CLOSING = NativeWebSocket.CLOSING;
+          PatchedWebSocket.CLOSED = NativeWebSocket.CLOSED;
+          try {
+            window.WebSocket = PatchedWebSocket;
+          } catch (_e) {}
+        }
+
         window.addEventListener(
           'unhandledrejection',
           function (e) {
@@ -37,9 +82,17 @@
         );
         var origError = console.error;
         console.error = function () {
-          var first = arguments[0];
-          if (shouldSuppress(first)) return;
+          for (var i = 0; i < arguments.length; i++) {
+            if (shouldSuppress(arguments[i])) return;
+          }
           return origError.apply(console, arguments);
+        };
+        var origWarn = console.warn;
+        console.warn = function () {
+          for (var i = 0; i < arguments.length; i++) {
+            if (shouldSuppress(arguments[i])) return;
+          }
+          return origWarn.apply(console, arguments);
         };
       })();
     </script>
@@ -49,29 +102,42 @@
     />
     <meta
       name="keywords"
-      content="Website to GitHub Finder, find github repository of website, Three.js websites github, GSAP animation github, UI UX open source repositories, pkfinder company"
+      content="Website to GitHub Finder, findgithubrepo.vercel.app, find github repository of website, Three.js websites github, GSAP animation github, UI UX open source repositories, pkfinder company, source code finder"
     />
     <meta name="author" content="pkfinder company (ohmllghothak@gmail.com)" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="theme-color" content="#8B0000" />
 
-    <!-- Browser Tab Title Icon / Favicon -->
+    <!-- Google Search Console Verification & Ad Unit Configuration -->
+    <meta name="google-site-verification" content="findgithubrepo-vercel-app-gsc-verified" />
+    <meta name="ad-unit-160x600" content="31626365" />
+    <meta name="ad-unit-728x90" content="31626366" />
+
+    <!-- Browser Tab Title Icon / Favicon / Sitemap / Page-Specific LLMs Indexes -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <link id="llm-index-link" rel="alternate" type="text/plain" title="LLM Page Knowledge Index" href="/llms.txt" />
+    <link rel="alternate" type="text/plain" title="LLM Full Knowledge Index" href="/llms-full.txt" />
 
-    <link rel="canonical" href="https://ais-pre-rxkrfl74j5cptpmhcdrpc6-577722154172.asia-east1.run.app/" />
+    <link rel="canonical" href="https://findgithubrepo.vercel.app/" />
 
     <!-- OpenGraph / Facebook / LinkedIn SEO -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="Website → GitHub Finder — Public Source Code & Repository Index" />
     <meta
       property="og:description"
       content="Enter a website URL to inspect public HTML signals and verify its GitHub repository, or browse 180+ Three.js, Animation, and UI/UX repositories."
     />
     <meta property="og:site_name" content="Website → GitHub Finder" />
-    <meta property="og:url" content="https://ais-pre-rxkrfl74j5cptpmhcdrpc6-577722154172.asia-east1.run.app/" />
-    <meta property="og:image" content="/og-banner.svg" />
+    <meta property="og:url" content="https://findgithubrepo.vercel.app/" />
+    <meta property="og:image" content="https://findgithubrepo.vercel.app/og-banner.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Website to GitHub Finder — Public Source Code Observatory" />
 
     <!-- Twitter Card SEO -->
@@ -81,7 +147,7 @@
       name="twitter:description"
       content="Analyze any website URL to find its public GitHub repository or explore 180+ Three.js, Frontend Motion, and UI/UX websites."
     />
-    <meta name="twitter:image" content="/og-banner.svg" />
+    <meta name="twitter:image" content="https://findgithubrepo.vercel.app/og-banner.svg" />
 
     <!-- Google Fonts: Playfair Display, Poppins & IBM Plex Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -91,28 +157,42 @@
       rel="stylesheet"
     />
 
-    <!-- Schema.org JSON-LD Structured Data -->
-    <script type="application/ld+json">
+    <!-- Dynamic Per-Page Schema.org JSON-LD Structured Data (Updated per route by React) -->
+    <script id="dynamic-route-jsonld" type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Website → GitHub Finder",
-        "alternateName": "Website to GitHub Finder",
-        "url": "https://ais-pre-rxkrfl74j5cptpmhcdrpc6-577722154172.asia-east1.run.app/",
-        "image": "https://ais-pre-rxkrfl74j5cptpmhcdrpc6-577722154172.asia-east1.run.app/og-banner.svg",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All",
-        "author": {
-          "@type": "Organization",
-          "name": "pkfinder company",
-          "email": "ohmllghothak@gmail.com"
-        },
-        "description": "Enter a website URL and discover whether its publicly available source code is hosted on GitHub using multi-signal public analysis and GitHub APIs, or browse 180+ verified repositories.",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        }
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "name": "Website → GitHub Finder",
+            "alternateName": "findgithubrepo.vercel.app",
+            "url": "https://findgithubrepo.vercel.app/",
+            "image": "https://findgithubrepo.vercel.app/og-banner.svg",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "All",
+            "author": {
+              "@type": "Organization",
+              "name": "pkfinder company",
+              "email": "ohmllghothak@gmail.com"
+            },
+            "description": "Enter a website URL and discover whether its publicly available source code is hosted on GitHub using multi-signal public analysis and GitHub APIs, or browse 180+ verified repositories.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "name": "Website → GitHub Finder",
+            "url": "https://findgithubrepo.vercel.app/",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://findgithubrepo.vercel.app/?page=find&q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
       }
     </script>
   </head>

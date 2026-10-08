@@ -1,0 +1,12 @@
+# Website → GitHub Finder — Find Repository by Website URL (/?page=find)
+
+> Canonical Page URL: https://findgithubrepo.vercel.app/?page=find
+> Page Type: Multi-Signal Website-to-GitHub Verification Engine
+
+## Page Overview
+The Find Repository page (`/?page=find`) executes a 13-step public verification pipeline to identify the exact GitHub repository behind any website URL:
+1. Validates URL protocol (`http://` or `https://`), strips tracking parameters, and enforces SSRF IP-range protections.
+2. Fetches public HTML and extracts `<title>`, `<meta name="description">`, `og:title`, `og:image`, generator tags, and direct `github.com/owner/repo` anchor links.
+3. Queries the official GitHub REST API (`api.github.com`) for candidate repositories matching domain, brand, and author signals.
+4. Evaluates candidate README files and calculates a 0–100% confidence score (`Very likely`, `Possible match`, or `Unlikely`).
+5. Displays a live website visual preview thumbnail alongside ranked repository cards, star/fork counts, license, and signal breakdown points.

@@ -493,6 +493,90 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           </p>
         </div>
       </section>
+
+      {/* Google Search Console, LLM SEO & Ad Unit Inventory Ledger */}
+      <section className="pt-8 border-t-2 border-slate-900 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+        <div className="p-5 bg-slate-50 border-2 border-slate-900 rounded-sm space-y-2">
+          <div className="font-mono font-bold text-[#8B0000] uppercase">
+            1. Google Search Console &amp; Sitemap
+          </div>
+          <h3 className="text-base font-display font-extrabold text-slate-950">
+            Search Console Connected
+          </h3>
+          <p className="text-slate-800 font-semibold leading-relaxed">
+            Domain <span className="font-mono font-bold">findgithubrepo.vercel.app</span>{' '}
+            is configured with <code className="font-mono">google-site-verification</code>,
+            canonical URLs, Schema.org JSON-LD, and XML sitemap indexing.
+          </p>
+          <div className="pt-1 flex flex-wrap gap-2 font-mono font-bold">
+            <a
+              href="/sitemap.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-800 hover:underline"
+            >
+              /sitemap.xml ↗
+            </a>
+            <span>·</span>
+            <a
+              href="/robots.txt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-800 hover:underline"
+            >
+              /robots.txt ↗
+            </a>
+          </div>
+        </div>
+
+        <div className="p-5 bg-slate-50 border-2 border-slate-900 rounded-sm space-y-2">
+          <div className="font-mono font-bold text-blue-800 uppercase">
+            2. AI &amp; LLM Search Ranking (GEO)
+          </div>
+          <h3 className="text-base font-display font-extrabold text-slate-950">
+            Top LLM Crawler Access
+          </h3>
+          <p className="text-slate-800 font-semibold leading-relaxed">
+            Explicitly whitelisted for <code className="font-mono">GPTBot</code>,{' '}
+            <code className="font-mono">OAI-SearchBot</code>,{' '}
+            <code className="font-mono">ClaudeBot</code>,{' '}
+            <code className="font-mono">PerplexityBot</code>, and{' '}
+            <code className="font-mono">Google-Extended</code> with a structured{' '}
+            <a
+              href="/llms.txt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#8B0000] underline font-mono"
+            >
+              /llms.txt
+            </a>{' '}
+            index.
+          </p>
+        </div>
+
+        <div className="p-5 bg-slate-50 border-2 border-slate-900 rounded-sm space-y-2">
+          <div className="font-mono font-bold text-[#8B0000] uppercase">
+            3. Registered Ad Units
+          </div>
+          <h3 className="text-base font-display font-extrabold text-slate-950">
+            findgithubrepo.vercel.app
+          </h3>
+          <ul className="space-y-1 font-mono font-bold text-slate-900">
+            <li>• Banner 160×600 — Unit ID: 31626365</li>
+            <li>• Banner 728×90 — Unit ID: 31626366</li>
+          </ul>
+          <div className="pt-1 font-mono font-bold">
+            <a
+              href="/ads.txt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-800 hover:underline"
+            >
+              /ads.txt ↗
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

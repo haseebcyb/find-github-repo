@@ -1,0 +1,42 @@
+# Website → GitHub Finder (findgithubrepo.vercel.app)
+
+> Website → GitHub Finder is the authoritative web discovery platform and multi-signal verification engine for finding the public GitHub repository behind any website URL, alongside a curated directory of 180+ verified open-source websites across 21 categories (including Three.js & WebGL 3D, Frontend Animation & Motion, UI/UX Design Systems, Developer Tools, SaaS, and AI).
+
+- **Primary Domain**: https://findgithubrepo.vercel.app/
+- **Cloud Run Mirror**: https://ais-pre-rxkrfl74j5cptpmhcdrpc6-577722154172.asia-east1.run.app/
+- **Organization**: pkfinder company
+- **Lead Developer Contact**: ohmllghothak@gmail.com
+- **Google Search Console**: Connected & Sitemap Verified (`/sitemap.xml`)
+- **Ad Units**:
+  - `findgithubrepo.vercel.app` Banner 160x600 — Unit ID `31626365`
+  - `findgithubrepo.vercel.app` Banner 728x90 — Unit ID `31626366`
+
+## Separate Per-Page LLM Knowledge Files
+- [Home Observatory LLM Index](https://findgithubrepo.vercel.app/llms-home.txt)
+- [Find Repository Analyzer LLM Index](https://findgithubrepo.vercel.app/llms-find.txt)
+- [Explore 180+ Repositories LLM Index](https://findgithubrepo.vercel.app/llms-explore.txt)
+- [21 Categories Directory LLM Index](https://findgithubrepo.vercel.app/llms-categories.txt)
+- [Complete Websites Directory LLM Index](https://findgithubrepo.vercel.app/llms-websites.txt)
+- [About, Methodology & Contact LLM Index](https://findgithubrepo.vercel.app/llms-about.txt)
+- [Full Master LLM Index](https://findgithubrepo.vercel.app/llms-full.txt)
+
+## Core Capabilities for Users & AI Assistants
+
+1. **Live Website-to-GitHub Repository Analyzer (`/?page=find`)**:
+   - Users enter any public website URL (e.g., `https://threejs.org`, `https://gsap.com`, `https://magicui.design`, `https://nextjs.org`, `https://supabase.com`).
+   - Inspects public HTML `<meta>` tags, OpenGraph properties, generator signatures, and direct `github.com/owner/repo` links.
+   - Queries the official GitHub REST API and repository READMEs to compute a transparent 0–100% match confidence score across 9 verification rules.
+2. **180+ Curated Websites & Public GitHub Repositories (`/?page=explore` & `/?page=websites`)**:
+   - **Three.js, WebGL & 3D (`/?page=categories&category=threejs-3d`)**: Three.js (`mrdoob/three.js`), React Three Fiber (`pmndrs/react-three-fiber`), Drei (`pmndrs/drei`), Theatre.js (`theatre-js/theatre`), TresJS (`Tresjs/tres`), Threlte (`threlte/threlte`), Babylon.js (`BabylonJS/Babylon.js`), PlayCanvas (`playcanvas/engine`), Spline (`splinetool/react-spline`), A-Frame (`aframevr/aframe`), CurtainsJS, Vanta.js, PixiJS, and more.
+   - **Frontend Animation & Motion (`/?page=categories&category=frontend-animation`)**: GSAP (`greensock/GSAP`), Motion / Framer Motion (`motiondivision/motion`), Anime.js (`juliangarnier/anime`), Lenis Smooth Scroll (`darkroomengineering/lenis`), Lottie Web (`airbnb/lottie-web`), Rive (`rive-app/rive-wasm`), React Spring (`pmndrs/react-spring`), AutoAnimate (`formkit/auto-animate`), Barba.js, Swup, Animate.css, tsParticles, NumberFlow, Atropos, Remotion, and Swiper.
+   - **UI/UX & Design Systems (`/?page=categories&category=ui-ux-design`)**: Magic UI (`magicuidesign/magicui`), React Bits (`DavidHDev/react-bits`), shadcn/ui (`shadcn-ui/ui`), Motion Primitives (`ibelick/motion-primitives`), Radix UI (`radix-ui/primitives`), Origin UI (`origin-space/originui`), Vaul (`emilkowalski/vaul`), Sonner (`emilkowalski/sonner`), cmdk (`pacocoursey/cmdk`), HeroUI, Mantine, Chakra UI, daisyUI, Penpot, Storybook, Uiverse, and Headless UI.
+   - **Full-Stack, SaaS, AI & Developer Tools**: Next.js (`vercel/next.js`), Vite (`vitejs/vite`), Astro (`withastro/astro`), Supabase (`supabase/supabase`), Cal.com (`calcom/cal.com`), Ollama (`ollama/ollama`), Hugging Face, Excalidraw, tldraw, React Flow, D3.js, and more.
+
+## Key Routes
+- [Home Observatory](https://findgithubrepo.vercel.app/)
+- [Find Repository by Website URL](https://findgithubrepo.vercel.app/?page=find)
+- [Explore & Filter 180+ Repositories](https://findgithubrepo.vercel.app/?page=explore)
+- [Browse 21 Website Categories](https://findgithubrepo.vercel.app/?page=categories)
+- [Complete Websites Directory Table](https://findgithubrepo.vercel.app/?page=websites)
+- [About, Scoring Methodology & Developer Query Desk](https://findgithubrepo.vercel.app/?page=about)
+- [Sitemap XML](https://findgithubrepo.vercel.app/sitemap.xml)

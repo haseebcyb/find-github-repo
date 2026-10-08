@@ -12,6 +12,7 @@ import {
 import { CATEGORIES, DIRECTORY_ENTRIES } from '../data/directoryData';
 import { SearchHistoryItem } from '../types';
 import { RepositoryCard } from '../components/RepositoryCard';
+import { AdBannerSlot } from '../components/AdBannerSlot';
 import { BUNDLED_SHOWCASE_IMAGES, FREE_SOURCE_FALLBACK_IMAGES } from '../imageAssets';
 
 interface HomeViewProps {
@@ -257,6 +258,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
           ))}
         </div>
       </section>
+
+      {/* Mid-Page Leaderboard Ad Slot */}
+      <AdBannerSlot position="inline" />
 
       {/* Recently Discovered Repositories + 30-Day Recharts Telemetry */}
       <section className="pt-8 border-t-2 border-slate-950 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

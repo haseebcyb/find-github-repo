@@ -1,0 +1,23 @@
+# Website → GitHub Finder — Complete Websites & Repository Directory (/?page=websites)
+
+> Canonical Page URL: https://findgithubrepo.vercel.app/?page=websites
+> Page Type: Comprehensive Tabular & Grid Directory of 180+ Verified Websites
+
+## Page Overview
+The Complete Websites Directory (`/?page=websites`) indexes 180+ verified production websites mapped directly to their public GitHub repositories (`owner/repo`), primary technology stack, programming language, star count, license, and verification confidence score.
+
+## Sample Indexed Website Detail Pages
+- https://findgithubrepo.vercel.app/?page=website-detail&site=threejs.org — Three.js (`mrdoob/three.js`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=gsap.com — GSAP GreenSock (`greensock/GSAP`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=motion.dev — Motion (`motiondivision/motion`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=magicui.design — Magic UI (`magicuidesign/magicui`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=reactbits.dev — React Bits (`DavidHDev/react-bits`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=ui.shadcn.com — shadcn/ui (`shadcn-ui/ui`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=nextjs.org — Next.js (`vercel/next.js`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=vite.dev — Vite (`vitejs/vite`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=astro.build — Astro (`withastro/astro`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=supabase.com — Supabase (`supabase/supabase`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=cal.com — Cal.com (`calcom/cal.com`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=ollama.com — Ollama (`ollama/ollama`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=excalidraw.com — Excalidraw (`excalidraw/excalidraw`)
+- https://findgithubrepo.vercel.app/?page=website-detail&site=tldraw.com — tldraw (`tldraw/tldraw`)

@@ -1,0 +1,35 @@
+# Website → GitHub Finder — Full Multi-Page LLM & Search Knowledge Index (findgithubrepo.vercel.app)
+
+> Website → GitHub Finder is an authoritative public source code observatory and verification engine built by pkfinder company (ohmllghothak@gmail.com). It identifies the public GitHub repository behind any website URL and indexes 180+ verified open-source websites across 21 categories.
+
+## Separate Per-Page LLM Knowledge Indexes
+- **Home Observatory (`/`)**: https://findgithubrepo.vercel.app/llms-home.txt
+- **Find Repository by URL (`/?page=find`)**: https://findgithubrepo.vercel.app/llms-find.txt
+- **Explore & Filter 180+ Websites (`/?page=explore`)**: https://findgithubrepo.vercel.app/llms-explore.txt
+- **Browse 21 Categories (`/?page=categories`)**: https://findgithubrepo.vercel.app/llms-categories.txt
+- **Complete Websites Directory (`/?page=websites`)**: https://findgithubrepo.vercel.app/llms-websites.txt
+- **About, Scoring & Developer Contact (`/?page=about`)**: https://findgithubrepo.vercel.app/llms-about.txt
+- **Dynamic Per-Page Endpoint**: `https://findgithubrepo.vercel.app/api/llms-page?page=<route>&category=<slug>&site=<domain>`
+
+## Indexed Categories (21 Separate SEO & LLM Pages)
+- Three.js, WebGL & 3D: https://findgithubrepo.vercel.app/?page=categories&category=threejs-3d
+- Frontend Animation & Motion: https://findgithubrepo.vercel.app/?page=categories&category=frontend-animation
+- UI/UX & Design Systems: https://findgithubrepo.vercel.app/?page=categories&category=ui-ux-design
+- Developer Tools: https://findgithubrepo.vercel.app/?page=categories&category=developer-tools
+- SaaS: https://findgithubrepo.vercel.app/?page=categories&category=saas
+- AI & Machine Learning: https://findgithubrepo.vercel.app/?page=categories&category=ai
+- E-Commerce: https://findgithubrepo.vercel.app/?page=categories&category=e-commerce
+- Portfolio: https://findgithubrepo.vercel.app/?page=categories&category=portfolio
+- Agency & Creative Studios: https://findgithubrepo.vercel.app/?page=categories&category=agency
+- Education: https://findgithubrepo.vercel.app/?page=categories&category=education
+- Finance: https://findgithubrepo.vercel.app/?page=categories&category=finance
+- Healthcare: https://findgithubrepo.vercel.app/?page=categories&category=healthcare
+- News & Media: https://findgithubrepo.vercel.app/?page=categories&category=news-media
+- Documentation: https://findgithubrepo.vercel.app/?page=categories&category=documentation
+- Open Source: https://findgithubrepo.vercel.app/?page=categories&category=open-source
+- Landing Pages: https://findgithubrepo.vercel.app/?page=categories&category=landing-pages
+- Productivity: https://findgithubrepo.vercel.app/?page=categories&category=productivity
+- Social & Community: https://findgithubrepo.vercel.app/?page=categories&category=social-community
+- Dashboards & Visualization: https://findgithubrepo.vercel.app/?page=categories&category=dashboards
+- Games & Physics: https://findgithubrepo.vercel.app/?page=categories&category=games
+- Miscellaneous: https://findgithubrepo.vercel.app/?page=categories&category=miscellaneous
