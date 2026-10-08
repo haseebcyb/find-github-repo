@@ -214,7 +214,7 @@ export default function App() {
     } else if (activePage === 'about') {
       title = 'How It Works, Security Architecture & Developer Query — Website → GitHub Finder';
       desc =
-        'Learn how Website to GitHub Finder scores candidate repositories, enforces SSRF protections, and contact developer ohmllghothak@gmail.com.';
+        'Learn how Website to GitHub Finder scores candidate repositories, enforces SSRF protections, and submit a query to our engineering team.';
       canonicalPath = '/?page=about';
       llmIndexFile = '/llms-about.txt';
       schemaPageType = 'AboutPage';
@@ -883,7 +883,7 @@ export default function App() {
             {/* Column 5: Developer Contact & Advertising */}
             <div className="space-y-3">
               <div className="font-display font-extrabold text-sm text-white uppercase tracking-wider border-l-2 border-[#8B0000] pl-2">
-                Contact &amp; Ad Units
+                Support &amp; Ad Units
               </div>
               <ul className="space-y-2 font-semibold">
                 <li>
@@ -896,12 +896,13 @@ export default function App() {
                   </button>
                 </li>
                 <li>
-                  <a
-                    href="mailto:ohmllghothak@gmail.com"
-                    className="text-red-400 hover:text-white hover:underline font-mono text-[11px] block truncate"
+                  <button
+                    type="button"
+                    onClick={() => navigateTo('about')}
+                    className="text-blue-400 hover:text-white hover:underline cursor-pointer"
                   >
-                    ohmllghothak@gmail.com
-                  </a>
+                    Submit Website / Book Ad
+                  </button>
                 </li>
                 <li className="text-slate-300 font-mono text-[11px]">
                   160×600 ID: <span className="text-white">31626365</span>
@@ -936,14 +937,7 @@ export default function App() {
           <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-slate-400 font-semibold">
             <div>
               © {new Date().getFullYear()} Website → GitHub Finder · Engineered by{' '}
-              <span className="text-white font-bold">pkfinder company</span> (
-              <a
-                href="mailto:ohmllghothak@gmail.com"
-                className="text-blue-400 hover:underline font-mono"
-              >
-                ohmllghothak@gmail.com
-              </a>
-              ).
+              <span className="text-white font-bold">pkfinder company</span>.
             </div>
             <div className="font-mono text-[11px] text-slate-300">
               On-Page SEO Verified · Sitemap &amp; Robots Active · GitHub REST API v2022-11-28

@@ -1,6 +1,6 @@
 # Website → GitHub Finder — Full Multi-Page LLM & Search Knowledge Index (findgithubrepo.vercel.app)
 
-> Website → GitHub Finder is an authoritative public source code observatory and verification engine built by pkfinder company (ohmllghothak@gmail.com). It identifies the public GitHub repository behind any website URL and indexes 180+ verified open-source websites across 21 categories.
+> Website → GitHub Finder is an authoritative public source code observatory and verification engine built by pkfinder company. It identifies the public GitHub repository behind any website URL and indexes 180+ verified open-source websites across 21 categories.
 
 ## Separate Per-Page LLM Knowledge Indexes
 - **Home Observatory (`/`)**: https://findgithubrepo.vercel.app/llms-home.txt

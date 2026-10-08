@@ -5,7 +5,6 @@
 - **Primary Domain**: https://findgithubrepo.vercel.app/
 - **Cloud Run Mirror**: https://ais-pre-rxkrfl74j5cptpmhcdrpc6-577722154172.asia-east1.run.app/
 - **Organization**: pkfinder company
-- **Lead Developer Contact**: ohmllghothak@gmail.com
 - **Google Search Console**: Connected & Sitemap Verified (`/sitemap.xml`)
 - **Ad Units**:
   - `findgithubrepo.vercel.app` Banner 160x600 — Unit ID `31626365`

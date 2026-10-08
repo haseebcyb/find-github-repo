@@ -14,9 +14,9 @@
 8. Verified Organization / Active Maintenance Signal (`+5 pts`)
 9. Archived or Unofficial Mirror Penalty (`-15 pts`)
 
-## Organization & Developer Contact
+## Organization & Support Desk
 - **Company**: pkfinder company
-- **Lead Developer Email**: ohmllghothak@gmail.com
+- **Support Form**: https://findgithubrepo.vercel.app/?page=about
 - **Advertising Units (`findgithubrepo.vercel.app`)**:
   - Skyscraper `160x600`: Unit ID `31626365`
   - Leaderboard `728x90`: Unit ID `31626366`

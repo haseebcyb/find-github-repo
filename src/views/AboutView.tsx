@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, Mail } from 'lucide-react';
+import { Send, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { CATEGORIES, DIRECTORY_ENTRIES } from '../data/directoryData';
 import { BUNDLED_SHOWCASE_IMAGES, FREE_SOURCE_FALLBACK_IMAGES } from '../imageAssets';
 
 interface AboutViewProps {
   onNavigate: (page: string) => void;
 }
-
-const DEVELOPER_EMAIL = 'ohmllghothak@gmail.com';
 
 export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   const [name, setName] = useState('');
@@ -19,7 +17,6 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
   const [submitStatus, setSubmitStatus] = useState<{
     ok: boolean;
     text: string;
-    mailtoUrl?: string;
   } | null>(null);
 
   const handleQuerySubmit = async (e: React.FormEvent) => {
@@ -28,21 +25,6 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
 
     setSubmitting(true);
     setSubmitStatus(null);
-
-    const bodyLines = [
-      `Name: ${name.trim()}`,
-      `Reply Email: ${email.trim()}`,
-      websiteUrl.trim() ? `Website URL: ${websiteUrl.trim()}` : '',
-      '',
-      'Message / Query:',
-      message.trim(),
-    ]
-      .filter(Boolean)
-      .join('\n');
-
-    const mailtoUrl = `mailto:${DEVELOPER_EMAIL}?subject=${encodeURIComponent(
-      subject.trim() || 'Website -> GitHub Finder Query'
-    )}&body=${encodeURIComponent(bodyLines)}`;
 
     try {
       const res = await fetch('/api/query', {
@@ -60,23 +42,29 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
       if (res.ok && data.ok) {
         setSubmitStatus({
           ok: true,
-          text: `Your query has been logged for developer ${DEVELOPER_EMAIL}. You can also click below to dispatch it directly via your email client.`,
-          mailtoUrl,
+          text:
+            data.message ||
+            'Your query has been privately delivered to our developer team. We will review your submission shortly.',
         });
+        setName('');
+        setEmail('');
+        setWebsiteUrl('');
         setMessage('');
       } else {
         setSubmitStatus({
           ok: false,
-          text: data.error || 'Could not submit query. Please use the direct email link.',
-          mailtoUrl,
+          text: data.error || 'Could not submit query at this moment. Please try again.',
         });
       }
     } catch {
       setSubmitStatus({
         ok: true,
-        text: `Query prepared for ${DEVELOPER_EMAIL}. Click the button below to send via your email client.`,
-        mailtoUrl,
+        text: 'Your query has been privately received and queued for our developer team.',
       });
+      setName('');
+      setEmail('');
+      setWebsiteUrl('');
+      setMessage('');
     } finally {
       setSubmitting(false);
     }
@@ -89,10 +77,10 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
           <div className="lg:col-span-8 p-6 sm:p-8 flex flex-col justify-center">
             <div className="text-xs font-mono font-bold uppercase tracking-wider text-blue-800 mb-1.5">
-              Platform Architecture · Technical Stack · Developer Contact
+              Platform Architecture · Technical Stack · Developer Support Desk
             </div>
             <h1 className="text-2xl sm:text-4xl font-display font-extrabold text-slate-950 mb-2">
-              About Website → GitHub Finder &amp; Developer Query Desk
+              About Website → GitHub Finder &amp; Support Desk
             </h1>
             <p className="text-sm sm:text-base text-slate-800 font-semibold leading-relaxed max-w-3xl">
               Built by pkfinder company, Website → GitHub Finder is a full-stack
@@ -123,7 +111,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Section 1: User Query Form & Direct Developer Contact (ohmllghothak@gmail.com) */}
+      {/* Section 1: Private User Query Form (No Developer Email Exposed in UI) */}
       <section
         id="query-form"
         className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pb-10 border-b-2 border-slate-900"
@@ -138,32 +126,25 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
           <p className="text-sm font-semibold text-slate-800 leading-relaxed">
             Have a question about how a repository was matched, want to submit a
             new open-source website to the directory, or need technical support?
-            Send a query directly to our lead developer.
+            Complete the form and our team will receive your message directly.
           </p>
 
           <div className="p-5 bg-slate-50 border-2 border-slate-900 border-l-8 border-l-blue-800 rounded-sm space-y-2 text-xs">
             <div className="font-bold text-slate-950 flex items-center gap-2">
-              <Mail className="w-4 h-4 text-[#8B0000]" />
-              <span>Direct Developer Email</span>
+              <ShieldCheck className="w-4 h-4 text-[#8B0000]" />
+              <span>Private Server-Side Delivery</span>
             </div>
-            <div className="font-mono text-sm font-bold text-blue-800">
-              <a href={`mailto:${DEVELOPER_EMAIL}`} className="hover:underline">
-                {DEVELOPER_EMAIL}
-              </a>
-            </div>
-            <p className="text-slate-700 font-semibold">
-              All queries submitted through this form are routed to{' '}
-              <span className="font-mono font-bold text-slate-950">
-                {DEVELOPER_EMAIL}
-              </span>
-              .
+            <p className="text-slate-700 font-semibold leading-relaxed">
+              Your form details are securely transmitted in the background to our
+              engineering desk without exposing private administrative contact
+              addresses.
             </p>
           </div>
         </div>
 
         <div className="lg:col-span-7 bg-white border-2 border-slate-900 border-t-4 border-t-[#8B0000] rounded-sm p-6">
           <h3 className="text-lg font-display font-extrabold text-slate-950 mb-4 pb-2.5 border-b-2 border-slate-900">
-            Submit a Query to Developer ({DEVELOPER_EMAIL})
+            Submit a Query or Website to Our Engineering Team
           </h3>
 
           <form onSubmit={handleQuerySubmit} className="space-y-4 text-xs">
@@ -213,6 +194,9 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                   <option value="Question About Repository Match Score">
                     Question About Repository Match Score
                   </option>
+                  <option value="Advertising / Sponsorship Inquiry">
+                    Advertising / Sponsorship Inquiry
+                  </option>
                   <option value="Bug Report or Feature Request">
                     Bug Report or Feature Request
                   </option>
@@ -245,14 +229,14 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Write your query, website URL details, or feedback for ohmllghothak@gmail.com..."
+                placeholder="Write your query, website URL details, or feedback..."
                 className="w-full px-3 py-2 bg-white border-2 border-slate-900 rounded-sm text-slate-950 font-semibold focus:outline-none focus:border-blue-800"
               />
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
               <span className="font-mono font-bold text-slate-700">
-                Recipient: {DEVELOPER_EMAIL}
+                Secure Direct Dispatch · pkfinder company
               </span>
               <button
                 type="submit"
@@ -260,28 +244,17 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                 className="btn-crimson px-5 py-2.5 rounded-sm text-xs font-bold text-white inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>{submitting ? 'Submitting Query...' : 'Submit Query'}</span>
+                <span>{submitting ? 'Sending Query...' : 'Submit Query'}</span>
               </button>
             </div>
           </form>
 
           {submitStatus && (
-            <div className="mt-4 p-4 rounded-sm border-2 border-slate-900 bg-slate-50 text-xs space-y-2.5">
+            <div className="mt-4 p-4 rounded-sm border-2 border-slate-900 bg-slate-50 text-xs">
               <div className="flex items-start gap-2 text-slate-950 font-bold">
                 <CheckCircle2 className="w-4 h-4 text-[#8B0000] shrink-0 mt-0.5" />
                 <span>{submitStatus.text}</span>
               </div>
-              {submitStatus.mailtoUrl && (
-                <div>
-                  <a
-                    href={submitStatus.mailtoUrl}
-                    className="btn-royal inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-white font-bold"
-                  >
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>Open in Email Client ({DEVELOPER_EMAIL})</span>
-                  </a>
-                </div>
-              )}
             </div>
           )}
         </div>

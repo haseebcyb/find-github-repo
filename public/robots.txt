@@ -1,6 +1,6 @@
 # ============================================================================
 # Website -> GitHub Finder (findgithubrepo.vercel.app)
-# Built by pkfinder company | Developer Contact: ohmllghothak@gmail.com
+# Built by pkfinder company
 # Complete Search Engine + Per-Page AI / LLM Answer Engine Optimization
 # ============================================================================
 

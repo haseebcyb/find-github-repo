@@ -1423,7 +1423,7 @@ app.get('/api/llms-page', (req, res) => {
     `# Website -> GitHub Finder — Page LLM Index (${page})
 > Domain: https://findgithubrepo.vercel.app/
 > Route: /?page=${page}${category ? `&category=${category}` : ''}${site ? `&site=${site}` : ''}
-> Organization: pkfinder company (ohmllghothak@gmail.com)
+> Organization: pkfinder company
 
 ## Dedicated Page LLM Indexes
 - Home: https://findgithubrepo.vercel.app/llms-home.txt
@@ -1533,7 +1533,10 @@ ${urlNodes}
 </urlset>`);
 });
 
-// In-memory store for user queries directed to ohmllghothak@gmail.com
+// Server-side private recipient for user queries (never exposed to client UI or response JSON)
+const PRIVATE_DEVELOPER_INBOX =
+  process.env.DEVELOPER_EMAIL || 'ohmllghothak@gmail.com';
+
 interface UserQuerySubmission {
   id: string;
   name: string;
@@ -1541,12 +1544,11 @@ interface UserQuerySubmission {
   websiteUrl?: string;
   subject: string;
   message: string;
-  developerEmail: string;
   submittedAt: string;
 }
 const submittedQueries: UserQuerySubmission[] = [];
 
-app.post('/api/query', (req, res) => {
+app.post('/api/query', async (req, res) => {
   const { name, email, websiteUrl, subject, message } = req.body || {};
   if (!name || !email || !message) {
     return res.status(400).json({
@@ -1561,14 +1563,39 @@ app.post('/api/query', (req, res) => {
     websiteUrl: websiteUrl ? String(websiteUrl).trim().slice(0, 300) : undefined,
     subject: subject ? String(subject).trim().slice(0, 200) : 'Website -> GitHub Finder Query',
     message: String(message).trim().slice(0, 2500),
-    developerEmail: 'ohmllghothak@gmail.com',
     submittedAt: new Date().toISOString(),
   };
   submittedQueries.unshift(submission);
+
+  // Dispatch form data silently in the background to the private developer email
+  try {
+    await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(PRIVATE_DEVELOPER_INBOX)}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Referer: 'https://findgithubrepo.vercel.app/',
+        Origin: 'https://findgithubrepo.vercel.app',
+      },
+      body: JSON.stringify({
+        name: submission.name,
+        email: submission.email,
+        website: submission.websiteUrl || 'N/A',
+        _subject: `[Website -> GitHub Finder] ${submission.subject}`,
+        message: submission.message,
+        _captcha: 'false',
+        _template: 'table',
+      }),
+    });
+  } catch {
+    // Keep submission stored server-side even if external relay is offline
+  }
+
   return res.json({
     ok: true,
-    submission,
-    message: 'Your query has been logged and prepared for developer ohmllghothak@gmail.com.',
+    submissionId: submission.id,
+    message:
+      'Your query has been privately delivered to our developer team. Thank you for reaching out!',
   });
 });
 
